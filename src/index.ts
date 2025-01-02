@@ -8,13 +8,12 @@ function bubbleSort(arr: number[]): number[] {
 
     for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr.length - i - 1; j++) {
-            if (arr[j] < arr[j + 1]) {
+            if (arr[j] > arr[j + 1]) {
                 let tem = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = tem;
             }
         }
-        printToConsole(arr)
     }
     return arr;
 }
@@ -87,20 +86,85 @@ function swap(arr: number[], sourceIndex: number, targetIndex: number) {
  * @param arr 
  * @returns 
  */
-function binarySearch(arr:number[],searchNumber:number,startIndex:number,endIndex:number):number{
+function binarySearchEven(arr:number[],searchNumber:number,startIndex:number,endIndex:number):number{  
 
-    if(arr.length % 2 === 0){
-        arr[(arr.length % 2) - 1] < searchNumber ? binarySearch(arr,searchNumber,0,(arr.length % 2) - 1) : binarySearch(arr,searchNumber,(arr.length % 2),(arr.length)) 
-    } else {
-      
+    let upperMiddle = Math.round((startIndex + endIndex) / 2);
+    let lowerMiddle = upperMiddle - 1;
+
+    if(arr[lowerMiddle] === searchNumber) {
+        return lowerMiddle;
     }
-    
-           
-    return 0;
+
+    if(arr[upperMiddle] === searchNumber) {
+        return upperMiddle;
+    }
+
+    if(searchNumber < arr[lowerMiddle]){
+        return binarySearch(arr,searchNumber,startIndex,lowerMiddle)
+    } else  {
+        return binarySearch(arr,searchNumber,upperMiddle,endIndex)
+    }
 }
 
 
+/**
+ * 
+ * @param arr 
+ * @param searchNumber 
+ * @param startIndex 
+ * @param endIndex 
+ * @returns 
+ */
+function binarySearchOdd(arr:number[],searchNumber:number,startIndex:number,endIndex:number):number{
 
+    let middle = Math.round((startIndex + endIndex)/2)
+    
+    if(arr[middle] === searchNumber){
+        return middle;
+    }
+
+    if(searchNumber < arr[middle]) {
+        return binarySearch(arr,searchNumber,startIndex,middle-1)
+    } else {
+        return binarySearch(arr,searchNumber,middle+1,endIndex)
+    }
+}
+
+/**
+ * 
+ * @param arr 
+ * @param searchNumber 
+ * @param startIndex 
+ * @param endIndex 
+ * @returns 
+ */
+function binarySearch(arr:number[],searchNumber:number,startIndex:number,endIndex:number){
+    bubbleSort(arr);
+    if(endIndex % 2 === 1){
+        return binarySearchEven(arr,searchNumber,startIndex,endIndex);
+    } else {
+        return binarySearchOdd(arr,searchNumber,startIndex,endIndex);
+    }
+}
+
+/**
+ * 
+ * @param arr 
+ * @param searchNumber 
+ */
+function linearSearch(arr:number[],searchNumber:number){
+    arr.forEach((val)=>{
+       if(val === searchNumber) { 
+            return searchNumber
+        }
+    })
+}
+
+
+/**
+ * 
+ * @param arr 
+ */
 function printToConsole(arr: number[]) {
     let line: string = ""
     arr.forEach((num) => {
@@ -119,10 +183,40 @@ function quickSort(arr: number[]): number[] {
 }
 
 
+function mergeSortOdd(arr:number[],searchNumber:number){
 
 
-let arr = [1, 8, 6, 2, 7]
 
-printToConsole(insertionSort(arr));
+}
+
+function mergeSortEven(arr:number[],searchNumber:number){
+
+    let upper = (arr.length / 2)
+    let lower = upper - 1
+}
+
+/**
+ * 
+ * @param arr 
+ */
+function mergeSort(arr:number[],searchNumber:number):number[]{
+
+    if(arr.length % 2 === 0){
+        mergeSortOdd(arr,searchNumber)
+    } else {
+        mergeSortEven(arr,searchNumber)
+    }
+    
+
+    
+
+    return[]
+}
+
+
+
+
+let arr = [1, 8, 6, 2, 7,9]
+console.log(binarySearch(arr,9,0,arr.length-1));
 
 

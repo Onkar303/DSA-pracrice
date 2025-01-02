@@ -184,9 +184,7 @@ function quickSort(arr: number[]): number[] {
 
 
 function mergeSortOdd(arr:number[],searchNumber:number){
-
-
-
+    
 }
 
 function mergeSortEven(arr:number[],searchNumber:number){
@@ -206,10 +204,6 @@ function mergeSort(arr:number[],searchNumber:number):number[]{
     } else {
         mergeSortEven(arr,searchNumber)
     }
-    
-
-    
-
     return[]
 }
 

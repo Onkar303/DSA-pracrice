@@ -183,34 +183,86 @@ function quickSort(arr: number[]): number[] {
 }
 
 
-function mergeSortOdd(arr:number[],searchNumber:number){
-    
-}
-
-function mergeSortEven(arr:number[],searchNumber:number){
-
-    let upper = (arr.length / 2)
-    let lower = upper - 1
+type Input = {
+    arr:number[],
+    startIndex:number,
+    endIndex:number,
+    middleIndex:number
 }
 
 /**
  * 
  * @param arr 
  */
-function mergeSort(arr:number[],searchNumber:number):number[]{
-
-    if(arr.length % 2 === 0){
-        mergeSortOdd(arr,searchNumber)
-    } else {
-        mergeSortEven(arr,searchNumber)
+function mergeSort(input:Input){  
+    if(input.startIndex === input.middleIndex &&  input.middleIndex === input.endIndex) { 
+        return
     }
-    return[]
+
+    if(Math.abs(input.startIndex - input.endIndex) === 1) {
+        mergeSwap(arr,input.startIndex,input.endIndex)
+        console.log(arr);
+        return
+    }
+
+
+    console.log(input)
+
+    let leftInput:Input = {
+        arr,
+        startIndex:0,
+        middleIndex:Math.round(input.middleIndex/2),
+        endIndex:input.middleIndex
+    }
+
+    let rightInput:Input = {
+        arr,
+        startIndex:input.middleIndex + 1,
+        middleIndex:(input.middleIndex + input.arr.length)/2,
+        endIndex:arr.length - 1
+    }
+
+    mergeSort(leftInput);
+    mergeSort(rightInput);
+
+}    
+
+
+function mergeSwap(arr:number[],index1:number,index2:number){
+
+    let temp;
+    if(arr[index1] < arr[index2]){
+        temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+    }
+
 }
 
 
+let arr = [1, 8, 6, 2, 7,9,3]
+
+/**
+ * 
+ * @param x 
+ * @returns 
+ */
+function reverseNumber(x:number){
+    let reversed:string = "";
+    let toBeReversedNumber:number = Math.abs(x);
+
+    while(toBeReversedNumber/10 > 0) {
+        reversed = reversed + (toBeReversedNumber % 10);
+        toBeReversedNumber = Math.trunc(toBeReversedNumber / 10);
+    }
+
+    let reversedNumber:number = +reversed;
+
+    return x<0 
+            ? reversedNumber  - (2*reversedNumber)
+            : reversedNumber
+}
 
 
-let arr = [1, 8, 6, 2, 7,9]
-console.log(binarySearch(arr,9,0,arr.length-1));
-
+console.log(Math.pow(-2,31));
 

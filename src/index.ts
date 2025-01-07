@@ -269,9 +269,8 @@ function myAtoi(s:string):number{
     const initialStopRegex = /^[a-zA-Z]|[0]+[\-\+]+/g
     const initialMinusRegex = /[-]/g
 
-    
     const regexFront = /^([\s\-\+0]+)/g
-    const regexBack = /([a-zA-Z]+[\d]+[a-zA-Z]+)$|([a-zA-Z]+[\d]+)+$/g
+    const regexBack = /([\sa-zA-Z]+)$|([a-zA-Z]+[\d]+[a-zA-Z]+)$|([a-zA-Z]+[\d]+)+$/g
 
     if(initialStopRegex.test(s)){
         return 0;
@@ -282,11 +281,15 @@ function myAtoi(s:string):number{
     } else {
         s = s.replace(regexFront,"") 
     }
-
     s = s.replace(regexBack,"");
-    return Number(s);
+    const num = Number(s);
+    if(num < 0 ){
+        return num < -Math.pow(2,31) ? -Math.pow(2,31) : num
+    } else {
+        return num > Math.pow(2,31) ? Math.pow(2,31) : num
+    }
 }
 
 
-console.log(myAtoi("4193 with words"));
+console.log(myAtoi("-91283472332"));
 

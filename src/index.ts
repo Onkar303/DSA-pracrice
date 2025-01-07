@@ -264,5 +264,29 @@ function reverseNumber(x:number){
 }
 
 
-console.log(Math.pow(-2,31));
+function myAtoi(s:string):number{
+    
+    const initialStopRegex = /^[a-zA-Z]|[0]+[\-\+]+/g
+    const initialMinusRegex = /[-]/g
+
+    
+    const regexFront = /^([\s\-\+0]+)/g
+    const regexBack = /([a-zA-Z]+[\d]+[a-zA-Z]+)$|([a-zA-Z]+[\d]+)+$/g
+
+    if(initialStopRegex.test(s)){
+        return 0;
+    }
+
+    if(initialMinusRegex.test(s)){
+        s = s.replace(regexFront,"-")
+    } else {
+        s = s.replace(regexFront,"") 
+    }
+
+    s = s.replace(regexBack,"");
+    return Number(s);
+}
+
+
+console.log(myAtoi("4193 with words"));
 

@@ -291,5 +291,52 @@ function myAtoi(s:string):number{
 }
 
 
-console.log(myAtoi("-91283472332"));
+function divide(dividend:number,divisor:number){
+
+    dividend = checkLimitAndReplace(dividend);
+    divisor = checkLimitAndReplace(divisor);
+
+    if(divisor === 1 || divisor === -1){
+        return checkDivide(dividend,divisor);
+    }
+
+
+    
+    let sum = 0,i=0;
+    let dividendAbs = Math.abs(dividend);
+    let divisorAbs = Math.abs(divisor);
+
+    while(sum <= dividendAbs){
+        sum = sum + divisorAbs
+        i++;
+    }
+
+    if((dividend > 0 && divisor < 0) || (dividend<0 && divisor > 0)){
+        return -(i-1);
+    }
+
+    return i-1;
+}
+
+function checkDivide(dividend:number,divisor:number) {
+    
+    if(divisor === 1 && dividend > 0 || (divisor === -1 && dividend < 0)){
+        return Math.abs(dividend);
+    }
+
+    if((divisor === 1 && dividend < 0) || (divisor === -1 && dividend > 0) ){
+        return -dividend
+    }
+}
+
+function checkLimitAndReplace(num:number){
+    if(num > Math.pow(2,31)-1) {
+        return Math.pow(2,31)-1;
+    } else {
+        return num;
+    }
+}
+
+
+console.log(divide(-2147483648,-1));
 

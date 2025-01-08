@@ -292,6 +292,9 @@ function myAtoi(s:string):number{
 
 
 function divide(dividend:number,divisor:number){
+    if(dividend === 0 || divisor === 0){
+        return 0;
+    }
 
     dividend = checkLimitAndReplace(dividend);
     divisor = checkLimitAndReplace(divisor);
@@ -300,8 +303,6 @@ function divide(dividend:number,divisor:number){
         return checkDivide(dividend,divisor);
     }
 
-
-    
     let sum = 0,i=0;
     let dividendAbs = Math.abs(dividend);
     let divisorAbs = Math.abs(divisor);
@@ -319,7 +320,7 @@ function divide(dividend:number,divisor:number){
 }
 
 function checkDivide(dividend:number,divisor:number) {
-    
+
     if(divisor === 1 && dividend > 0 || (divisor === -1 && dividend < 0)){
         return Math.abs(dividend);
     }
@@ -327,6 +328,10 @@ function checkDivide(dividend:number,divisor:number) {
     if((divisor === 1 && dividend < 0) || (divisor === -1 && dividend > 0) ){
         return -dividend
     }
+}
+
+function IsValid(){
+    
 }
 
 function checkLimitAndReplace(num:number){

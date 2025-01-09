@@ -291,18 +291,21 @@ function myAtoi(s:string):number{
 }
 
 
-function divide(dividend:number,divisor:number){
+function divide(dividend: number, divisor: number): number {
+    let upperLimit = Math.pow(2,31)-1
+    let lowerLimit = -Math.pow(2,31)
+
     if(dividend === 0 || divisor === 0){
         return 0;
     }
 
-    dividend = checkLimitAndReplace(dividend);
-    divisor = checkLimitAndReplace(divisor);
-
     if(divisor === 1 || divisor === -1){
-        return checkDivide(dividend,divisor);
+        return checkDivide(dividend,divisor,upperLimit,lowerLimit);
     }
 
+    dividend = checkLimitAndReplace(dividend,upperLimit,lowerLimit);
+    divisor = checkLimitAndReplace(divisor,upperLimit,lowerLimit);
+   
     let sum = 0,i=0;
     let dividendAbs = Math.abs(dividend);
     let divisorAbs = Math.abs(divisor);
@@ -319,24 +322,23 @@ function divide(dividend:number,divisor:number){
     return i-1;
 }
 
-function checkDivide(dividend:number,divisor:number) {
+function checkDivide(dividend:number,divisor:number,upperLimit:number,lowerLimit:number) {
 
     if(divisor === 1 && dividend > 0 || (divisor === -1 && dividend < 0)){
-        return Math.abs(dividend);
+        return checkLimitAndReplace(Math.abs(dividend),upperLimit,lowerLimit);
     }
 
-    if((divisor === 1 && dividend < 0) || (divisor === -1 && dividend > 0) ){
-        return -dividend
+    if((divisor === 1) || (divisor === -1 )){
+        return dividend < 0 ? dividend : - dividend
     }
+    return 0;
 }
 
-function IsValid(){
-    
-}
-
-function checkLimitAndReplace(num:number){
-    if(num > Math.pow(2,31)-1) {
-        return Math.pow(2,31)-1;
+function checkLimitAndReplace(num:number,upperLimit:number,lowerLimit:number){
+    if(num > upperLimit) {
+        return upperLimit;
+    } else if(num < lowerLimit) {
+        return lowerLimit;
     } else {
         return num;
     }

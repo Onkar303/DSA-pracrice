@@ -371,7 +371,16 @@ function isMatch(s: string, p: string): boolean {
   if(!p.includes("*") && !p.includes(".")){
     return false;
   }
-  return x.test(s);
+
+  const arr = x.exec(s);
+  return arr?.[0] === s;
 };
 
-console.log(isPlaindromicNumber(121));
+
+function multiply(num1: string, num2: string): string {
+    let num11:number = +num1;   
+    let num21:number = +num2;
+    
+    return (num11*num21).toString();
+    
+};

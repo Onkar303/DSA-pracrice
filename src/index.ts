@@ -378,9 +378,29 @@ function isMatch(s: string, p: string): boolean {
 
 
 function multiply(num1: string, num2: string): string {
-    let num11:number = +num1;   
-    let num21:number = +num2;
+    let num11:number = stringToNumber(num1);   
+    let num21:number = stringToNumber(num2);
     
-    return (num11*num21).toString();
-    
+    return (num11*num21).toString();  
 };
+
+
+function stringToNumber(x:string):number{
+    let multipler = 10;
+    let base = 48
+    let list:number[] = [];
+    let convertedToNumber:number = 0;
+    for(let i = x.length - 1; i>=0; i--) {
+        list.push(x.charCodeAt(i) - base);
+    }
+
+    for(let i=0;i<list.length;i++){
+      convertedToNumber = convertedToNumber +Math.pow(multipler,i) *  list[i];        
+    }
+
+    return convertedToNumber;
+}
+
+
+console.log(stringToNumber("123"));
+

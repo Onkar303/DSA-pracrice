@@ -266,22 +266,27 @@ function reverseNumber(x:number){
 
 function myAtoi(s:string):number{
     
-    const initialStopRegex = /^[a-zA-Z]|[0]+[\-\+]+/g
+    const initialStopRegex = /^[a-zA-Z]|^([0]+[\W])+|^([\+\-]{2,})/g
     const initialMinusRegex = /[-]/g
 
     const regexFront = /^([\s\-\+0]+)/g
-    const regexBack = /([\sa-zA-Z]+)$|([a-zA-Z]+[\d]+[a-zA-Z]+)$|([a-zA-Z]+[\d]+)+$/g
+    const regexBack = /([\.][\da-zA-Z]+)+$|([\s]+[a-zA-Z]+)+$|([\a-zA-Z]+[\d]+[\a-zA-Z]+)$|([\a-zA-Z]+[\d]+)+$/g
 
     if(initialStopRegex.test(s)){
         return 0;
     }
 
-    if(initialMinusRegex.test(s)){
-        s = s.replace(regexFront,"-")
-    } else {
-        s = s.replace(regexFront,"") 
+    if(regexFront.test(s)) {
+        s = initialMinusRegex.test(s) 
+            ? s.replace(regexFront,"-")
+            : s.replace(regexFront,"")
+    
     }
-    s = s.replace(regexBack,"");
+
+    if(regexBack.test(s)){
+        s = s.replace(regexBack,"");
+    }
+   
     const num = Number(s);
     if(num < 0 ){
         return num < -Math.pow(2,31) ? -Math.pow(2,31) : num
@@ -310,11 +315,12 @@ function divide(dividend: number, divisor: number): number {
     let dividendAbs = Math.abs(dividend);
     let divisorAbs = Math.abs(divisor);
 
+    console.log({dividend,divisor})
     while(sum <= dividendAbs){
         sum = sum + divisorAbs
         i++;
     }
-
+  
     if((dividend > 0 && divisor < 0) || (dividend<0 && divisor > 0)){
         return -(i-1);
     }
@@ -345,5 +351,17 @@ function checkLimitAndReplace(num:number,upperLimit:number,lowerLimit:number){
 }
 
 
-console.log(divide(-2147483648,-1));
 
+function isPlaindromicNumber(x:number):boolean{
+    let originalNumber = x;
+    let reverse:string = ""; 
+    let convertedNumber = x.toString(); 
+
+    for(let i = convertedNumber.length - 1 ;i >= 0 ;i--){
+        reverse = reverse + convertedNumber[i];
+    }
+
+    return reverse === convertedNumber ? true : false;
+}
+
+console.log(isPlaindromicNumber(121));

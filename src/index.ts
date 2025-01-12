@@ -364,4 +364,14 @@ function isPlaindromicNumber(x:number):boolean{
     return reverse === convertedNumber ? true : false;
 }
 
+
+function isMatch(s: string, p: string): boolean {
+  let x = new RegExp(p,"g");
+
+  if(!p.includes("*") && !p.includes(".")){
+    return false;
+  }
+  return x.test(s);
+};
+
 console.log(isPlaindromicNumber(121));

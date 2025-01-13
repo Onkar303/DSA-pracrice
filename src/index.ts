@@ -378,14 +378,17 @@ function isMatch(s: string, p: string): boolean {
 
 
 function multiply(num1: string, num2: string): string {
-    let num11:number = stringToNumber(num1);   
-    let num21:number = stringToNumber(num2);
-    
-    return (num11*num21).toString();  
+    let num11:number[] = stringToNumber(num1);   
+    let num21:number[] = stringToNumber(num2);
+
+    console.log(num11,num21);
+
+    let product = arrayMultiplication(num11,num21);
+    return "0"
 };
 
 
-function stringToNumber(x:string):number{
+function stringToNumber(x:string):number[]{
     let multipler = 10;
     let base = 48
     let list:number[] = [];
@@ -393,14 +396,27 @@ function stringToNumber(x:string):number{
     for(let i = x.length - 1; i>=0; i--) {
         list.push(x.charCodeAt(i) - base);
     }
+    return list.reverse();
+    
+}
 
-    for(let i=0;i<list.length;i++){
-      convertedToNumber = convertedToNumber +Math.pow(multipler,i) *  list[i];        
+function arrayMultiplication(arr1:number[],arr2:number[]):number[]{
+    
+    let product = 0;
+    let carryOver = 0;
+    
+    for(let i = arr2.length - 1;i >= 0 ; i--){
+        
+        for(let j = arr1.length - 1;j >= 0 ; j--){
+            product = arr2[i] * arr1[j]; 
+
+        
+        }
     }
 
-    return convertedToNumber;
+    return [];
 }
 
 
-console.log(stringToNumber("123"));
+console.log(multiply("12","12"));
 
